@@ -1,0 +1,566 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+/* common */
+html, body{
+	color: #333;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.clearfix:after{
+	content: '';
+	display: block;
+	clear: both;
+}
+input:-ms-input-placeholder { color: #ccc; }
+/* Internet Explorer 10 이상에 적용 */
+
+input::-webkit-input-placeholder { color: #ccc; } 
+/* Webkit, Blink, Edge에 적용 */
+
+input::-moz-placeholder { color: #ccc; }
+/* Mozilla Firefox 4 부터 18에 적용 */
+
+input::-moz-placeholder { color: #ccc; }
+/* Mozilla Firefox 19 이상에 적용 */
+strong{
+	font-weight: bold;
+}
+a{
+	color: #333;
+}
+
+/* 시작페이지 */
+.wrap{
+	position: relative;
+	width: 100%;
+	background: url('/ppaeruwa/images/bg.jpg') no-repeat 0 0/100% 100%;
+}
+.bg_color{
+	width: 100%;
+	padding-top: 120px;
+	color: #fff;
+	font-size: 3rem;
+	background-color: #000;
+	opacity: 0.6;
+	text-align: center;
+}
+.mem-move-btn{
+	position: absolute;
+	bottom: 115px;
+	left: 50%;
+	margin-left: -128px;
+}
+
+/* Top */
+#top{
+	border-bottom: 1px solid #ccc;
+}
+#top .row{
+	margin-bottom: 0;
+}
+#top .side-nav{
+	width: 250px;
+}
+#top .background{
+	background-color: #26a69a;
+}
+#top .account-icon i{
+	color: #fff;
+}
+#top .user-view span.name{
+	margin-top: 0;
+}
+
+/* 메뉴 */
+.top-area{
+	padding: 15px 0;
+}
+.top-area a{
+	position: absolute;
+	display: block;
+	height: 24px;
+}
+.mmBtn-icon{
+	color: #555;
+}
+.top-title{
+	color: #555;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+
+/* 메인 */
+#contents.main{
+	padding-top: 0;
+}
+.main .user_main{
+	padding: 30px 0;
+	background: url('/ppaeruwa/images/bg.jpg') no-repeat 0 0/100% 100%;
+}
+.main .user_main > .row{
+	margin-bottom: 0;
+}
+.main .user_account .chip{
+	background-color: transparent;
+}
+.main .card{
+	background-color: #f9f9f9;
+}
+.main .card .card-content{
+	height: 155px;
+}
+.main .card .card-title{
+	font-size: 1.1rem;
+	line-height: 1;
+}
+.main .main_alink{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+.main .main_alink a{
+	display: block;
+	width: 100%;
+	height: 50px;
+	margin-bottom: 15px;
+	line-height: 50px;
+}
+#footer_nav{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #e0e0e0;
+	z-index: 1;
+}
+#footer_nav ul{
+	margin: 0;
+}
+#footer_nav ul li{
+	float: left;
+	width: 25%;
+}
+#footer_nav ul li a{
+	display: block;
+	height: 42px;
+	padding: 10px 5px;
+	color: #333;
+	text-align: center;
+}
+
+/* contents */
+#contents{
+	padding: 30px 0;
+}
+#contents .subPage-title{
+	margin-top: 4px;
+	font-size: 16px;
+}
+#contents .total-kcal strong{
+	font-size: 16px;
+}
+
+/* login */
+.login .label{
+	width: 50% !important;
+}
+.row .col.login-btn{
+	padding-top: 20px;
+}
+.mem-move{
+	width: 262px;
+	margin: 0 auto;
+}
+.mem-move li{
+	float: left;
+	padding-right: 5px;
+}
+.mem-move li.first:after{
+	content: '|';
+	padding-left: 5px;
+}
+.mem-move li a{
+	color: #000;
+	font-size: 12px;
+}
+.mem-move li + li{
+	padding-right: 0;
+}
+
+/* Today's diet */
+.diet a{
+	color: #333;
+}
+.diet .date{
+	padding-bottom: 30px;
+}
+.diet .date i{
+	vertical-align: middle;
+}
+.diet .tab-contents{
+	min-height: 340px;
+	padding: 0.75rem;
+	/* background-color: #f9f9f9; */
+}
+.diet .tab-title-area{
+	margin: 0;
+	border-bottom: 1px solid #aaa;
+}
+.diet .tab-title{
+	padding-top: 3px;
+}
+.diet .list{
+	margin: 20px 0;
+	padding: 0.2rem 0.75rem;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+}
+.diet .add-icon{
+	display: inline-block;
+	padding-top: 5px;
+	vertical-align: top;
+}
+.diet .row{
+	margin-bottom: 0;
+}
+.diet .kcal-area{
+	border-right: 2px solid #aaa;
+}
+.diet .kcal-area strong{
+	font-size: 19px;
+}
+.diet .nutrition{
+	margin: 0;
+	padding-top: 5px;
+}
+.diet .nutrition li{
+	float: left;
+	padding: 0 5px;
+}
+.diet .nutrition li:first-child{
+	padding: 0 5px 0 0;
+}
+.diet .modal h4{
+	font-size: 16px;
+}
+.diet .modal form input[type="text"]{
+	width: 77%;
+	margin: 0;
+}
+.diet .modal form .btn{
+	padding: 0 10px;
+}
+.diet .modal .list{
+	margin: 10px 0;
+    padding: 0.5rem;
+    /* border: 1px solid #aaa; */
+    border-radius: 4px;
+}
+.diet .modal .list .check-icon{
+	font-size: 1.5rem;
+	vertical-align: middle;
+}
+.diet .modal .list .kcal-area{
+	padding-top: 1px;
+	border-right: 0 none;
+}
+.diet .modal .list .kcal-area strong{
+	font-size: 18px;
+}
+.diet .modal .file-field{
+	margin: 10px 0;
+}
+.diet .modal .file-field .file-path-wrapper{
+	float: left;
+	width: 81%;
+	padding-left: 0;
+}
+.diet .modal .file-field .file-path{
+	width: 100%;
+}
+.diet .modal .file-field .btn{
+	float: right;
+	padding: 0 11px;
+}
+.diet .modal .photo-area{
+	margin: 10px 0;
+}
+.diet .modal .photo-image{
+	width: 100%;
+	min-height: 120px;
+	padding: 0;
+	border: 1px solid #aaa;
+	line-height: 120px;
+}
+.diet .modal .modal-footer{
+	height: 62px;
+	padding: 0 10px 20px;
+}
+.diet .modal .modal-footer .submit{
+	color: #fff;
+	background-color: #0277bd;
+}
+.diet .modal .modal-footer .cancel{
+	background-color: #eceff1;
+}
+
+/* Today's fitness */
+.fitness .date{
+	padding-bottom: 30px;
+}
+.fitness .date i{
+	vertical-align: middle;
+}
+.fitness .tab-contents{
+	min-height: 340px;
+	padding: 0.75rem;
+	/* background-color: #f9f9f9; */
+}
+.fitness .tab-title-area{
+	margin: 0;
+	border-bottom: 1px solid #aaa;
+}
+.fitness .list{
+	margin: 20px 0;
+	padding: 0.2rem 0.75rem;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+}
+.fitness .add-icon{
+	display: inline-block;
+	padding-top: 5px;
+	vertical-align: top;
+}
+.fitness .row{
+	margin-bottom: 0;
+}
+.fitness .kcal-area{
+	border-right: 2px solid #aaa;
+}
+.fitness .kcal-area strong{
+	font-size: 20px;
+}
+.fitness .fitness-time{
+	padding-top: 5px;
+}
+.fitness .modal h4{
+	font-size: 16px;
+}
+.fitness .modal form input[type="text"]{
+	width: 77%;
+	margin: 0;
+}
+.fitness .modal form .btn{
+	padding: 0 10px;
+}
+.fitness .modal .list{
+	margin: 10px 0;
+    padding: 0.5rem;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+.fitness .modal .list .check-icon{
+	vertical-align: middle;
+}
+.fitness .modal .list .kcal-area{
+	padding-top: 1px;
+	border-right: 0 none;
+}
+.fitness .modal .list .kcal-area strong{
+	font-size: 18px;
+}
+.fitness .modal .total-kcal{
+	margin: 30px 0 0;
+    padding: 0.75rem 0.5rem;
+	border-top: 1px solid #aaa;
+}
+.fitness .modal .modal-footer{
+	height: 62px;
+	padding: 0 10px 20px;
+}
+.fitness .modal .modal-footer .submit{
+	color: #fff;
+	background-color: #0277bd;
+}
+.fitness .modal .modal-footer .cancel{
+	background-color: #eceff1;
+}
+.fitness .modal .autocomplete-content{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.fitness a{
+	color: #333;
+}
+/* 운동갈래 */
+.fitness #test2 .collection{
+	margin: 0.5rem 0 4rem 0
+}
+.fitness #test2 .collection-item span{
+	display: block;
+	margin-bottom: 10px;
+	color: #26a69a;
+}
+.fitness #test2 .collection-item img{
+	width: 100%;
+	height: 200px;
+}
+.fitness #test2 .collection-item .content{
+	margin: 10px 0;
+}
+.fitness a.btn{
+	color: #fff;
+}
+.fitness .fixed-action-btn{
+	bottom: 50px;
+}
+
+/* 운동갈래 후기 작성 */
+.fitness_write #submit{
+	margin-bottom: 40px;
+}
+
+/* 회원가입  */
+.signup .modal table tbody tr th{
+	width: 35%;
+}
+.sing_kcal_show{
+	margin-top: -1.6em;
+}
+.signup_kcal{
+	font-size:0.74em;
+}
+#goalk{
+	margin-bottom: 0;
+}
+.signup_kcal_show{
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+.signup_kcal{
+	color: blue;
+	font-size:0.75rem;
+}
+#pass2{
+	margin-bottom: 0;
+}
+#result{
+	margin-top: 5px;
+	margin-bottom: 20px;
+	font-size:0.75rem;
+}
+
+/* 아이디 찾기 */
+.footform{
+	position : fixed;
+	bottom : 120px;
+	left : 0;
+	padding:0 0.75rem;
+}
+.validate .valizeromargin{
+	margin : 0px;
+}
+
+/* 타임라인 */
+.messegebtnin{
+	color: #fff;
+}
+
+/* 채팅 */
+#chatArea{
+	background-color: #eee;
+}
+#exitBtn{
+	padding: 20px 20px 0;
+}
+#exitBtn i{
+	vertical-align: middle;
+}
+#chatMessageArea{
+	height: 455px;
+	padding: 20px;
+	overflow-y: auto;
+}
+#chatMessageArea p{
+	margin-bottom: 5px;
+}
+#chatMessageArea p.me{
+	text-align: right;
+}
+#chatMessageArea .card-panel{
+	width: 50%;
+	margin-top: 0;
+	padding: 5px 10px;
+}
+#chatMessageArea .msgYou{
+	float: right;
+}
+.sendmessage{
+	position: absolute;
+	top: 560px;
+	width: 100%;
+	padding: 0 10px;
+}
+.sendmessage #message{
+	width: 84%;
+}
+.sendmessage #sendBtn{
+	padding: 0 15px;
+}
+
+/* 운동갈래 */
+/* 키워드로 장소검색하고 목록으로 표출하기 */
+.map_wrap, .map_wrap * {margin:0;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:100%;height:400px;}
+#menu_wrap {width: 98%;height: 392px;margin: 0 auto;overflow-y:auto;overflow-x:hidden;background:rgba(255, 255, 255, 1);font-size:12px;border-radius: 10px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option button {margin-left:5px;}
+#placesList li {list-style: none;}
+#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList .item span {display: block;margin-top:4px;}
+#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item .info{padding:10px 0 10px 55px;}
+#placesList .info .gray {color:#8a8a8a;}
+#placesList .info .jibun {padding-left:26px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .info .tel {color:#009900;}
+#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList .item .marker_1 {background-position: 0 -10px;}
+#placesList .item .marker_2 {background-position: 0 -56px;}
+#placesList .item .marker_3 {background-position: 0 -102px}
+#placesList .item .marker_4 {background-position: 0 -148px;}
+#placesList .item .marker_5 {background-position: 0 -194px;}
+#placesList .item .marker_6 {background-position: 0 -240px;}
+#placesList .item .marker_7 {background-position: 0 -286px;}
+#placesList .item .marker_8 {background-position: 0 -332px;}
+#placesList .item .marker_9 {background-position: 0 -378px;}
+#placesList .item .marker_10 {background-position: 0 -423px;}
+#placesList .item .marker_11 {background-position: 0 -470px;}
+#placesList .item .marker_12 {background-position: 0 -516px;}
+#placesList .item .marker_13 {background-position: 0 -562px;}
+#placesList .item .marker_14 {background-position: 0 -608px;}
+#placesList .item .marker_15 {background-position: 0 -654px;}
+#pagination {margin:10px auto;text-align: center;}
+#pagination a {display:inline-block;margin-right:10px;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;}
+/* customize */
+#keyword{width:61%;padding-left:10px;}
+.dropup_area{position: absolute;top: 400px;left: 0;width: 100%;margin-bottom: 50px;background-color: rgba(255, 255, 255, 0.7);z-index: 1;}
+#dropup_menu_wrap{margin: 20px 0;padding: 5px 0;font-size: 14px;background-color: #f0f0f0;text-align: center;cursor: pointer;}
+#dropup_menu_wrap i{font-size: 2rem;vertical-align: middle;}
+
+/* 사용자 컨트롤 */
+.radius_border{border:1px solid #919191;border-radius:5px;}     
+.custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:132px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol span {display:block;width:65px;height:30px;float:left;padding:0;color:#333;font-size:12px;text-align:center;line-height:30px;cursor:pointer;}
+.custom_typecontrol .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol .selected_btn:hover {color:#fff;}   
+.custom_zoomcontrol {position:absolute;top:50px;right:10px;width:36px;height:80px;overflow:hidden;z-index:1;background-color:#f5f5f5;} 
+.custom_zoomcontrol span {display:block;width:36px;height:40px;text-align:center;cursor:pointer;line-height:40px;}     
+.custom_zoomcontrol span img {width:15px;height:15px;padding:0;border:none;}             
+.custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}

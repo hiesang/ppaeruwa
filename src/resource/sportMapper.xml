@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+	<mapper namespace="mvc.repository.SportDAO">
+		<resultMap type="sport" id="sportMap"/>
+		<resultMap type="tosport" id="tosportMap"/>
+		<resultMap type="gofitness" id="goFitnessMap" />
+		
+		<select id="searchSport" parameterType="String" resultMap="sportMap">
+			select * from sport where 1=1 and sports like '%'|| #{sch} ||'%'
+		</select>
+		<insert id="Sportinsert" parameterType="tosport">
+			insert into tosport values(#{email},#{sport},#{stime},#{skcal},to_date(#{sdate}, 'YYYY-MM-DD HH24:MI:SS'))
+		</insert>
+		<select id="Tosportlist" parameterType="tosport" resultMap="tosportMap">
+			<!-- 날짜를 선택해서 하는건 일단 나중으로 미룬다. -->
+			select * from tosport 
+			<if test="email !=null and email != ''">
+			where email like '%'||#{email}||'%' and  to_char(sdate,'YYYYMMDD') = to_char(sysdate,'YYYYMMDD')
+			</if>
+			 order by sdate desc
+		</select>
+		<select id="TTlist" parameterType="tosport" resultMap="tosportMap">
+			select * from tosport
+			where email = #{email} and to_char(sdate,'YYYYMMDD') = SUBSTR(#{sdate},1,8)
+			order by sdate desc
+		</select>
+		  <delete id="delSport" parameterType="tosport">
+			delete from tosport 
+			where email = #{email}
+			and to_char(sdate,'YYYYMMDDHH24MISS') = #{sdate}
+		</delete> 
+		
+		<!-- 운동갈래(후기) -->
+		<insert id="fitReviewInsert" parameterType="gofitness">
+			insert into goFitness values(fitness_seq.nextval, #{email}, #{nickname}, #{search}, #{latitude}, #{longitude}, #{content}, sysdate)
+		</insert>
+		<select id="fitReviewList" resultMap="goFitnessMap">
+			select * from goFitness
+		</select>
+	</mapper>

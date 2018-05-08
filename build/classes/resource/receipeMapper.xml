@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+		<mapper namespace="mvc.repository.ReceipeDAO">
+		<resultMap type="receipe" id="receipeMap"/>
+		
+		
+			<insert id="rinsert" parameterType="receipe">
+				insert into receipe values('test',1,#{fname},#{addmat},#{addnum},3,#{proce},500,250,300,400)
+			</insert>
+			
+			
+		<!-- 	<insert id="rinsert3" parameterType="receipefile">
+				insert into rproc values(#{fname},1,#{proce} )
+			</insert> -->
+			
+			
+			<!-- <select id="weightlist" parameterType="weight" resultMap="weightMap">
+				select * from weight where 1=1 order by wdate
+			</select>
+			
+			<update id="weightupdate" parameterType="member">
+				update users SET weight=#{weight},height=#{height},goalw=#{goalw},goalk=#{goalk}
+			</update> -->
+			
+	</mapper>

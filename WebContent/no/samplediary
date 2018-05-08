@@ -1,0 +1,55 @@
+주말이 제일 문제다
+다이어트방해꾼이랑 붙어있는 주말 ㅠㅠ
+유혹을 못이기는 나도 문제지만 ㅋㅋ
+그래 주말에는 먹고싶은걸 
+많이 말고 조금 먹는 연습을 하자!
+언제까지나 집에서 
+다이어트식단만 먹을수 없으니
+일반 음식을 건강하게 
+조금씩 먹는 연습을 터득해야겠다~!
+
+
+
+저녁에도 딱히 메뉴가 떠오르지않아
+점심에 먹었던 또띠아랩 어게인 ㅋㅋ
+김밥발에 랩깔고 또띠아 올려서 말면 
+단단히 잘말아진다 ㅋㅋ
+점심에 했던 경험이 있어서 
+저녁엔 채소도 훨씬 많이 넣고 
+닭가슴살도 많이 넣고
+단단히 잘 말아졌다 ㅋㅋ
+
+
+
+
+아침에 일어나자 마자 
+몸무게를 재보니 55kg대로 내려왔다!
+저녁에 재면 다시 56kg대지만 ㅋㅋ
+이렇게 며칠 잘 유지하면 
+또 1kg가 빠질것같다 ㅋㅋ
+근데 오늘이 금요일이다..
+공포의 금요일...
+이번주말은 술유혹/치킨유혹이 없기를
+간절히 바래본다 ㅠㅠㅠ
+나를 시험에 들게하지말라!!!
+
+
+select * from timeline;
+select * from reply;
+select * from T_LINE_IMG;
+
+
+
+delete from timeline;
+delete from T_LINE_IMG;
+delete from reply;
+
+drop sequence DIARY_FILE_SEQ;
+drop sequence DIARY_SEQ;
+drop sequence REPLY_SEQ;
+
+create SEQUENCE DIARY_FILE_SEQ;
+create SEQUENCE DIARY_SEQ;
+create SEQUENCE REPLY_SEQ;
+
+commit;

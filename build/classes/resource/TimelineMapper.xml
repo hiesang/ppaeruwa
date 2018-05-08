@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+	<mapper namespace="mvc.repository.DiaryDAO">
+		<resultMap type="diary" id="diaryMap"/>
+		<resultMap type="tfvo" id="TFMap"/>
+		<resultMap type="reply" id="reMap"/>
+		<resultMap type="follow" id="foMap"/>
+		
+		
+			<insert id="diaryinsert" parameterType="diary">
+				insert into timeline values(#{email} , diary_seq.nextval , #{comments, jdbcType=VARCHAR}, to_date(#{wdate, jdbcType=VARCHAR},'MM/DD/YYYY'), 0, #{publickey, jdbcType=INTEGER})
+			</insert>
+			
+			<insert id="reflectinsert" parameterType="reflect">
+				insert into reflect values(#{email}, reflect_seq.nextval, to_date(#{wdate, jdbcType=VARCHAR},'MM/DD/YYYY'), #{comments}, 0)
+			</insert>
+			<select id="reflectview" parameterType="reflect" resultType="reflect">
+				select * from reflect where email = #{email} and no = (select max(no) from reflect)
+			</select>
+			
+			<select id="timelinelist" parameterType="diary" resultMap="diaryMap">
+				select * from timeline where available=0 and email = #{email} order by wdate desc
+			</select>
+			<insert id="insertRepo" parameterType="String">
+		 		insert into T_LINE_IMG values(diary_seq.currval||'_'||diary_file_seq.nextval||#{1},#{0}, diary_seq.currval, diary_file_seq.nextval,sysdate)
+		 	</insert>
+		 	<select id="timg" parameterType="diary" resultMap="TFMap">
+		 		select * from T_LINE_IMG where email = #{email} and dno = (select max(dno) from T_LINE_IMG)
+		 	</select>
+		 	<select id="timgoutput" parameterType="diary" resultMap="TFMap">
+		 		select * from T_LINE_IMG where email = #{email} and dno = #{no}
+		 	</select>
+		 	<insert id="replyinput" parameterType="reply">
+		 	 insert into reply values(#{targetmail},#{no},reply_seq.nextval, #{mymail},#{comments},sysdate,0)
+		 	</insert>
+		 	<select id="replyoutput" parameterType="reply" resultMap="reMap">
+		 		select * from reply where targetmail = #{targetmail} and no = #{no} order by wdate asc
+		 	</select>
+		 	<select id="replyoutputAll" parameterType="diary" resultMap="reMap">
+		 		select * from reply where targetmail = #{email} and no = #{no} order by wdate asc
+		 	</select>
+		 	
+		 	<select id="likecheck" parameterType="like" resultType="int">
+		 		select count(likecnt) from likelist where no = #{no} and mymail = #{mymail}
+		 	</select>
+		 	<select id="likecheck2" parameterType="diary" resultType="int">
+		 		select count(likecnt) from likelist where no = #{no} and mymail = #{mymail}
+		 	</select>
+		 	<insert id="likecntup" parameterType="like">
+		 		insert into likelist values(#{targetmail}, #{mymail}, #{no}, 1)
+		 	</insert>
+		 	<insert id="likecntdown" parameterType="like">
+		 		delete from likelist where no = #{no} and mymail = #{mymail}
+		 	</insert>
+		 	<select id="likeAllCnt" parameterType="like" resultType="int">
+		 		select count(likecnt) from likelist where no = #{no}
+		 	</select>
+		 	<select id="likeBaseCnt" parameterType="diary" resultType="int">
+		 		select count(likecnt) from likelist where no = #{no}
+		 	</select>
+		 	<select id="linemodify" parameterType="int" resultType="diary">
+		 		select * from timeline where no = #{timelineno}
+		 	</select>
+		 	<select id="modinsert" parameterType="diary">
+		 		update timeline set comments = #{comments}, wdate = to_date(#{wdate, jdbcType=VARCHAR},'MM/DD/YYYY') where no = #{no}
+		 	</select>
+		 	<select id="linedelete" parameterType="int">
+		 		delete from timeline where no = #{timelineno}
+		 	</select>
+		 	<insert id="stateinsert" parameterType="mystate">
+		 		insert into mystate values(#{email},#{comments})
+		 	</insert>
+		 	<select id="mscheck" parameterType="mystate" resultType="int">
+		 		select count(email) from mystate where email=#{email}
+		 	</select>
+		 	<select id="msmodify" parameterType="mystate">
+		 		update mystate set comments = #{comments} where email = #{email}
+		 	</select>
+		 	<select id="selectms" parameterType="mystate" resultType="mystate">
+		 		select * from mystate where email = #{email}
+		 	</select>
+		 	<insert id="followinginsert" parameterType="follow">
+		 		insert into follow values(#{follower}, #{following})
+		 	</insert>
+		 	<select id="following" parameterType="follow" resultType="int">
+		 		select count(follower) from follow where follower=#{follower} and following=#{following}
+		 	</select>
+		 	<insert id="followingdelete" parameterType="follow">
+		 		delete from follow where follower=#{follower} and following=#{following}
+		 	</insert>
+		 	<select id="followinglist" parameterType="follow" resultMap="foMap">
+		 		select following from follow where follower=#{follower}
+		 	</select>
+		 	<select id="followerlist" parameterType="follow" resultMap="foMap">
+		 		select follower from follow where following=#{follower}
+		 	</select>
+		 	<select id="followinglistcnt" parameterType="String" resultType="int">
+		 		select count(following) from follow where following=#{email}
+		 	</select>
+		 	<select id="followerlistcnt" parameterType="String" resultType="int">
+		 		select count(following) from follow where follower=#{email}
+		 	</select>
+		 	<delete id="replydel" parameterType="int">
+		 		delete from reply where refno = #{refno}
+		 	</delete>
+		 	<insert id="tagadd" parameterType="diary">
+		 		insert into taglist values(#{no},#{mymail},sysdate) 
+		 	</insert>
+		 	<delete id="tagdel" parameterType="diary">
+		 		delete from taglist where no = #{no} and mymail = #{mymail}
+		 	</delete>
+		 	<delete id="tagalldel" parameterType="int">
+		 		delete from taglist where no = #{timelineno}
+		 	</delete>
+		 	<select id="mytagstate" parameterType="diary" resultType="int">
+		 		select count(no) from taglist where no = #{no} and mymail = #{mymail}
+		 	</select>
+		 	<select id="taglist" parameterType="String" resultMap="diaryMap">
+		 		select c.email,c.no,c.comments,c.wdate, d.name, d.profile 
+				from (select a.*,b.tdata from timeline a, taglist b where a.no = b.no and b.mymail = #{email}) c, users d 
+				where c.email = d.email order by c.tdata desc 
+		 	</select>
+		 	
+	</mapper>

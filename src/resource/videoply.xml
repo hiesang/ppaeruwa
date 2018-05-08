@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mvc.repository.VideoDAO">
+		<resultMap type="videoply" id="videoMap"/>
+		
+		<insert id="upload_video" parameterType="String"> <!-- 이메일 닉네임 제목 내용 파일명 조회수 링커 올린날짜 -->
+		insert into videoply values(#{0, jdbcType=VARCHAR},#{1, jdbcType=VARCHAR},
+			#{2},#{3},#{4, jdbcType=VARCHAR},0,#{5, jdbcType=VARCHAR},sysdate)
+		</insert>
+		
+	<!-- 	<select id="video_count" parameterType="vidsch" resultMap="int">
+		select count(*) from videoply where 1=1
+		<if test="nickname != null and nickname != ''">
+		and nickname like '%'|| #{sch} ||'%'
+		</if>
+		<if test="email != null and email !=''">
+		and email like '%'|| #{sch} ||'%'
+		</if>
+		<if test="title != null and title !=''">
+		and title like '%'|| #{sch} ||'%'
+		</if>
+		</select> -->
+		
+		<select id="play_list" parameterType="vidsch" resultMap="videoMap"> <!-- 검색리스트 -->
+		select * from VIDEOPLY where 1=1
+		<if test="nickname != null and nickname != '' and email != null and email !='' and title != null and title !=''">
+		and (nickname like '%'|| #{nickname} ||'%' or email like '%'|| #{email} ||'%' or title like '%'|| #{title} ||'%')
+		</if>
+		order by DBMS_RANDOM.VALUE <!-- 랜덤으로 리스트를 호출한다  최근날짜로 첫번째 리스트를 호출하는건 나중에 해보도록한다. -->
+		</select>
+		
+		<select id="show_play" parameterType="vidsch" resultMap="videoMap"> <!-- 상세페이지 -->
+		select * from videoply where 1=1
+		and title = #{title}
+		and to_char(time,'YYYY-MM-DD HH24:MI:SS') = #{time}
+		</select>
+		<select id="show_list" parameterType="vidsch" resultMap="videoMap"><!-- 상세페이지 글 리스트 -->
+		select * from 
+		(select * from videoply 
+		where 1=1 
+		order by DBMS_RANDOM.VALUE)
+		where ROWNUM between 0 and 5 <!-- 랜덤으로 리스트를 호출하되 5개까지만 호출한다. 나중에 추후 더 추가할 예정이다 -->
+		</select>
+	</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+	<mapper namespace="mvc.repository.MemberDAO">
+		<resultMap type="member" id="memberMap"/>
+		
+		<insert id="memberInsert" parameterType="member">
+			insert into users 
+			values(#{email}, #{password}, #{nickname}, #{name}, #{gender}, #{tel}, #{weight}, #{goalw}, #{goalk}, #{birth}, #{address}, #{height}, #{profile})
+		</insert>
+		<select id="emailConfirm" parameterType="String" resultType="int">
+			select count(email) from users where email = #{email}
+		</select>
+		<select id="login" parameterType="member" resultMap="memberMap">
+			select * from users where email = #{email} and password = #{password}
+		</select>
+		<select id="findId" parameterType="member" resultMap="memberMap">
+			select email from users where name = #{name} and tel = #{tel} and birth = #{birth}
+		</select>
+		<select id="findPw" parameterType="member" resultMap="memberMap">
+			select * from users where email = #{email} and tel = #{tel}
+		</select>
+		<select id="searchMem" parameterType="String" resultMap="memberMap">
+			select * from users where email like '%'|| #{search} ||'%' or nickname like '%'|| #{search} ||'%'
+		</select>
+		<select id="memberUpdate" parameterType="member">
+			update users set password = #{password}, address = #{address}, tel = #{tel} where email = #{email}
+		</select>
+		<select id="userlist" resultMap="memberMap">
+			select * from users
+		</select>
+		
+		<select id="userline" parameterType="String" resultType="member">
+			select * from users where email = #{email}
+		</select>
+		<select id="findNick" parameterType="String" resultType="String">
+			select nickname from users where email = #{email}
+		</select>
+		
+		<select id="profileImg" parameterType="String" resultType="String">
+			select profile from users where email = #{email}
+		</select>
+		<update id="profileUpdate" parameterType="String">
+			update users set profile = #{1} where email = #{0}
+		</update>
+		
+	</mapper>

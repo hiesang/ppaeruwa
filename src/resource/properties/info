@@ -1,0 +1,6 @@
+upload=C:/a01_java/workspace2/ppaeruwa/WebContent/filefolder/
+upload2=C:/a01_java/workspace2/ppaeruwa/WebContent/receipefolder/
+driver=oracle.jdbc.driver.OracleDriver
+dbserver=jdbc:oracle:thin:@localhost:1521:xe
+name=admin2
+pass=admin2

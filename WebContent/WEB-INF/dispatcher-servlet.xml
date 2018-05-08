@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- dtd  spring 프레임웍에 관련된 dtd 선언되고, 그 형식대로 하단에 xml을 선언하영함..-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:util="http://www.springframework.org/schema/util"
+	 xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+  		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+   		http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket.xsd    
+       " >
+       <context:annotation-config/>
+       <context:component-scan base-package="mvc">
+       	 	<context:include-filter type="annotation" 
+       	 		expression="org.springframework.stereotype.Controller"/>
+       	 	<context:include-filter type="annotation" 
+       	 		expression="org.springframework.stereotype.Service"/>   
+       	 	<context:include-filter type="annotation" 
+       	 		expression="org.springframework.stereotype.Repository"/>	    	 	
+       </context:component-scan>
+       <context:component-scan base-package="test">
+       	 	<context:include-filter type="annotation" 
+       	 		expression="org.springframework.stereotype.Controller"/>
+       	 	<context:include-filter type="annotation" 
+       	 		expression="org.springframework.stereotype.Service"/>   
+       	 	<context:include-filter type="annotation" 
+       	 		expression="org.springframework.stereotype.Repository"/>	    	 	
+       </context:component-scan>
+
+  		<context:property-placeholder 
+  			location="classpath:/resource/properties/info"/>
+  		<!-- DB 연결 설정 : connection pool로 메모리 효율적 처리..
+  		1. destroy-method : 해당내용을 처리한 후, 자원해제를 위한 메서드 호출..
+  		 -->
+  		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+  			destroy-method="close">
+  			<!--  db_info에 있는 속성을 $형식으로 연결 처리.. -->
+  			<property name="driverClassName" value="${driver}"/>
+  			<property name="url" value="${dbserver}"/>
+  			<!-- 계정 정보 -->
+  			<property name="username" value="${name}"/>
+  			<property name="password" value="${pass}"/>
+  		</bean> 
+  		<!--Mybatis 설정 처리 
+  		1. DB 연결 : setDataSource
+  		2. mybatis고유의 설정 처리..(공통 마바이티즈 설정xml과 연결)
+  		-->
+  		<bean id="sqlSessionFatory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  			<property name="dataSource" ref="dataSource" />
+  			<!-- mybatis 설정 xml  -->
+  			<property name="configLocation" value="classpath:resource/mybatis.Spring.xml"/>
+  		</bean>
+  		<!-- dao 인터페이스 위치를 설정으로 자동으로 mybatis모듈에서 실재 클래스가 만들어 지게 setting -->
+  		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+  			<property name="basePackage" value="mvc.repository"/>
+  		</bean>
+  		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+  			<property name="basePackage" value="test"/>
+  		</bean>
+		<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		    <property name="messageConverters">
+		        <list>
+		            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		                <property name="supportedMediaTypes">
+		                    <list>
+		                        <value>text/html;charset=UTF-8</value>
+		                    </list>
+		                </property>
+		            </bean>
+		        </list>
+		    </property>
+		</bean>
+		
+		<!-- 웹소캣통신을 처리할 수 있는 모듈 선언 
+       	 	handler가 view단에서 호출할 때, 이름과 실체 처리하는 클래스와 mapping
+       	 	handler : 핸들러의 이름으로 선언되 class
+       	 	path : view단에서 채팅시 호출되는 url
+       -->
+	  	<bean id="annotationUrlMapping" 
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+ 		<bean id="controllerClassNameHandlerMapping" 
+		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+		<bean id="annotationMethodHandlerAdapter" 
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />  
+       <!-- 핸들러의 id 이름과  chatHandler 를 url 주소로 연결함../chat-ws.do-->
+       <websocket:handlers>
+       	<websocket:mapping handler="chatHandler" 
+       		path="/chat-ws.do"/>
+       </websocket:handlers>
+       <mvc:default-servlet-handler/>
+
+ 	<!-- viewResolver
+ 	1. jsp만 처리 
+ 	2. jsp와 기타 다른 view(파일다운로드, json)도 같이 처리될 수 있게 설정
+ 		1) bnViewResolver : 기타 view
+ 		2) viewResolver : jsp
+ 	 -->	
+ 	 <!-- 기타 bean viewResolver 설정 -->
+ 	<bean id="bnViewResolver" 
+ 		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+ 		<property name="order" value="0"/> 
+ 		<!-- bean이름(id)으로 호출하는 view Resolver을 최우선으로 처리. -->
+ 	</bean> 
+ 	 <!-- jsp 처리 viewResolver -->
+ 	<bean id="viewResolver" 
+ 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+ 		<property name="prefix" value=""/>
+ 		<!-- view 호출 시, .jsp는 자동으로 붙게 처리.. -->
+ 		<property name="suffix" value=".jsp"/>
+ 		<!-- view의 우선 순위은 2번째.. -->
+ 		<property name="order" value="1" />
+ 	</bean>
+ 	<!-- 파일 업로드 viewResolver -->
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+  	<!-- 프로젝트에 등록할 파일이 없으므로 제외한다. -->
+  	<!-- 메일 전송 모듈 선언
+		JavaMailSenderImpl에서 지정하는 메서드
+		1. Host: 해당 메일서버 IP
+			ex) smtp.gmail.com
+		2. port: 사용할 port
+		3. defaultEncoding: 메일 한글 encoding
+		4. javaMailProperties: 자바메일 속성들 지정
+		5. username: 메일 계정
+		6. password: 비밀번호
+	 -->
+	 <bean id="pageJsonReport" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+ 		<property name="contentType" value="text/html;charset=utf-8" />
+ 	</bean>
+ 	
+	 
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+ 		<property name="basenames">
+ 			<list>
+ 				<!-- resource 하위에  -->
+ 				<value>message.msg</value>
+ 				<value>message.validation</value>
+ 				<value>message.label</value> 				
+ 			</list>
+ 		</property>
+ 	</bean>	 
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="username" value="ley9472@gmail.com" />
+		<property name="password" value="p5cs63jpj147" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.debuf">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				
+			</props>
+		</property>
+	</bean>
+  </beans>     
+  
+  
+  
+  
+  
+  
+  

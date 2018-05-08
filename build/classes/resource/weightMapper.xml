@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+		<mapper namespace="mvc.repository.WeightDAO">
+		<resultMap type="weight" id="weightMap"/>
+		
+		
+			<insert id="weightinsert" parameterType="weight">
+				insert into weight values(#{email} ,#{weight} ,sysdate )
+			</insert>
+			<select id="weightlist" parameterType="weight" resultMap="weightMap">
+				select * from weight where email = #{email} order by wdate desc
+			</select>
+			
+			<update id="weightupdate" parameterType="member">
+				update users SET weight=#{weight},height=#{height},goalw=#{goalw},goalk=#{goalk}
+			</update>
+			
+			 <delete id="del" parameterType="weight">
+					delete from weight where email=#{email} and to_char(wdate,'YYYYMMDDHH24MISS') = #{wdate}
+			</delete>
+			
+	</mapper>

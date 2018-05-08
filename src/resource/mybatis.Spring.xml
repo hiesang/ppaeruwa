@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- mybatis 설정 관련 파일(공통)
+1. VO 클래스 선언..
+2. 모듈별 sql 설정 파일 위치 지정..
+ -->
+<configuration>
+	<typeAliases>
+		<typeAlias alias="diary" type="mvc.vo.Diary"/>
+		<typeAlias alias="reflect" type="mvc.vo.Reflect"/>
+		<typeAlias alias="member" type="mvc.vo.Member"/>
+		<typeAlias alias="tfvo" type="mvc.vo.TimelineFileVO"/>
+		<typeAlias alias="weight" type="mvc.vo.Weight"/>
+		<typeAlias alias="sport" type="mvc.vo.Sport"/>
+		<typeAlias alias="tosport" type="mvc.vo.Tosport"/>
+		<typeAlias alias="reply" type="mvc.vo.Reply"/>
+		<typeAlias alias="receipe" type="mvc.vo.Receipe"/>
+		<typeAlias alias="foodlist" type="mvc.vo.FoodList"/>
+		<typeAlias alias="like" type="mvc.vo.Like"/>
+		<typeAlias alias="useeat" type="mvc.vo.Useeat"/>
+		<typeAlias alias="mystate" type="mvc.vo.Mystate"/>
+		<typeAlias alias="gofitness" type="mvc.vo.GoFitness"/>
+		<typeAlias alias="follow" type="mvc.vo.Follow"/>
+		<typeAlias alias="mypage" type="test.MypageVo"/>
+		<typeAlias alias="videoply" type="mvc.vo.Videoply"/>
+		<typeAlias alias="vidsch" type="mvc.vo.VideoSch"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="resource/TimelineMapper.xml"/>
+		<mapper resource="resource/memberMapper.xml"/>
+		<mapper resource="resource/weightMapper.xml"/>
+		<mapper resource="resource/sportMapper.xml"/>
+		<mapper resource="resource/receipeMapper.xml"/>
+		<mapper resource="resource/foodMapper.xml"/>
+		<mapper resource="resource/testMapper.xml"/>
+		<mapper resource="resource/videoply.xml"/>
+		<mapper resource="resource/reportMapper.xml"/>
+	</mappers>
+</configuration> 
